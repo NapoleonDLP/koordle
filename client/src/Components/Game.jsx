@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Board from './Board';
 import Keyboard from './Keyboard';
+import './Game.css';
 
 const Game = () => {
   const [board, setBoard] = useState([[null, null, null, null, null],
