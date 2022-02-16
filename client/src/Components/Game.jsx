@@ -7,14 +7,14 @@ const Game = () => {
   const [board, setBoard] = useState([[null, null, null, null, null],
                                       [null, null, null, null, null],
                                       [null, null, null, null, null],
-                                      [null, null, null, null, null],
+                                      [null, 'A', null, null, null],
                                       [null, null, null, null, null],
                                       [null, null, null, null, null]
                                       ]);
 
   const [ keyboard, setKeyboard ] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
                                               ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-                                              ['z', 'x', 'c', 'v', 'b', 'n', 'm']
+                                              ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
                                             ]);
   return (
     <>
