@@ -13,7 +13,6 @@ const Board = ({ currentWord, attemptCount }) => {
                                     ]);
 
   useEffect(() => {
-    console.log('CurrentWord: ', currentWord)
     let row = attemptCount;
     let currentSquare = currentWord.length-1;
 
@@ -28,7 +27,6 @@ const Board = ({ currentWord, attemptCount }) => {
 
       return boardRow;
     });
-    console.log('Updated board before setting', updatedBoard)
     setBoard(updatedBoard)
   }, [currentWord])
 
