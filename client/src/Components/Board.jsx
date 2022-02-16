@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Board.css';
 
-const Board = ({ currentWord }) => {
+const Board = ({ currentWord, attemptCount }) => {
   // Do you need attempt here?n
   // const [currentWord, setCurrentWord] = useState(props.currentWord);
   const [board, setBoard] = useState([[null, null, null, null, null],
                                     [null, null, null, null, null],
                                     [null, null, null, null, null],
-                                    [null, 'A', null, null, null],
+                                    [null, null, null, null, null],
                                     [null, null, null, null, null],
                                     [null, null, null, null, null]
                                     ]);
 
-  console.log("CurrentWord from Board component: ", currentWord);
+  useEffect(() => {
+    if(currentWord.length > 0) {
+      let row = attemptCount;
+      let currentSquare = currentWord.length-1;
+      let updatedBoard = board.map((boardRow, index) => {
+        if(index === row) {
+          boardRow[currentSquare] = currentWord[currentSquare];
+        }
+        return boardRow;
+      })
+
+      setBoard(updatedBoard)
+    }
+  }, [currentWord])
 
   return (
     <div className='board'>
