@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Keyboard.css';
 
-const Keyboard = ({ setCurrentWord, currentWord }) => {
+const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount }) => {
 
 
   const [ keyboard, setKeyboard ] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
