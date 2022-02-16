@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './Board.css';
 
 const Board = ({ currentWord, attemptCount }) => {
-  // Do you need attempt here?n
-  // const [currentWord, setCurrentWord] = useState(props.currentWord);
   const [board, setBoard] = useState([[null, null, null, null, null],
                                     [null, null, null, null, null],
                                     [null, null, null, null, null],

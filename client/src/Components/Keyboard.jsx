@@ -3,7 +3,6 @@ import './Keyboard.css';
 
 const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount }) => {
 
-
   const [ keyboard, setKeyboard ] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
                                               ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
                                               ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
@@ -26,8 +25,9 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount }
     } else if (currentWord.length === 5 && e.target.innerText === 'Enter') {
       setAttemptCount(attemptCount + 1);
       setCurrentWord([]);
-      //CHECK results of current word
-        //Update keyboard to reflect that
+      //TODO: Check word results
+        // Update CSS for Board based on results
+        // Update CSS for Keyboard
     }
   }
 

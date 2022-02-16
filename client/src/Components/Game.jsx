@@ -7,8 +7,6 @@ const Game = () => {
   const [currentWord, setCurrentWord] = useState([]);
   const [attemptCount, setAttemptCount] = useState(0);
 
-  console.log("CurrentWord from Game component: ", currentWord);
-
   return (
     <>
       <Board currentWord={ currentWord } attemptCount={ attemptCount }></Board>
