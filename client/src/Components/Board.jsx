@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Board.css';
 
-const Board = ({ board }) => {
+const Board = (props) => {
+  // Do you need attempt here?n
+  const [currentWord, setCurrentWord] = useState(props.currentWord);
+  const [board, setBoard] = useState([[null, null, null, null, null],
+                                    [null, null, null, null, null],
+                                    [null, null, null, null, null],
+                                    [null, 'A', null, null, null],
+                                    [null, null, null, null, null],
+                                    [null, null, null, null, null]
+                                    ]);
+
   return (
     <div className='board'>
       {board.map((row, rowIndex) => (
