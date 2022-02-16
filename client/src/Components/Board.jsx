@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './Board.css';
 
-const Board = (props) => {
+const Board = ({ currentWord }) => {
   // Do you need attempt here?n
-  const [currentWord, setCurrentWord] = useState(props.currentWord);
+  // const [currentWord, setCurrentWord] = useState(props.currentWord);
   const [board, setBoard] = useState([[null, null, null, null, null],
                                     [null, null, null, null, null],
                                     [null, null, null, null, null],
@@ -12,12 +12,13 @@ const Board = (props) => {
                                     [null, null, null, null, null]
                                     ]);
 
+  console.log("CurrentWord from Board component: ", currentWord);
+
   return (
     <div className='board'>
       {board.map((row, rowIndex) => (
         <ul id={ 'row-' + rowIndex } className='row' key={rowIndex}>
           {row.map((square, squareIndex) => {
-            console.log(square)
             let location = rowIndex + '-' + squareIndex;
             return (
               <li id={'square-' + location } className='square' key={[rowIndex, squareIndex]}>
