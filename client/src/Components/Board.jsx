@@ -1,9 +1,17 @@
 import React from 'react';
 
-const Board = () => {
-
+const Board = ({ board }) => {
   return (
-    <h1> Hello World... Board</h1>
+    <div className='board'>
+      {board.map((row, rowIndex) => (
+        <ul id={ 'row-' + rowIndex } className='row'>
+          {row.map((square, squareIndex) => {
+            let location = rowIndex + '-' + squareIndex;
+            return <li id={'square-' + location } className='square' key={[rowIndex, squareIndex]}></li>
+          })}
+        </ul>
+      ))}
+    </div>
   )
 };
 
