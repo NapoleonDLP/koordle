@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Keyboard.css';
 
-const Keyboard = ({ keyboard }) => {
+const Keyboard = ({ currentWord }) => {
+    const [ keyboard, setKeyboard ] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+                                              ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+                                              ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
+                                            ]);
 
   return (
     <div className='board'>
