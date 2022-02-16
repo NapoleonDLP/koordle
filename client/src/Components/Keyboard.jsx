@@ -4,7 +4,19 @@ import './Keyboard.css';
 const Keyboard = ({ keyboard }) => {
 
   return (
-    <h1>Hello World... Keyboard</h1>
+    <div className='keyboard'>
+      {
+        keyboard.map((row) => (
+          <div className="keyboardRow">
+            {
+              row.map((keyboardButton) => (
+                <div className='key'>{ keyboardButton }</div>
+              ))
+            }
+          </div>
+        ))
+      }
+    </div>
   )
 };
 
