@@ -13,12 +13,20 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount }
     if (currentWord.length < 5 && e.target.innerText !== 'Enter' && e.target.innerText !== 'Delete') {
       setCurrentWord(currentWord.concat([e.target.innerText]));
     } else if (e.target.innerText === 'Delete') {
-      let lastRemoved = [...currentWord];
-      lastRemoved.pop();
-      setCurrentWord(lastRemoved);
+      let lastIndex = currentWord.length-1;
+
+      let shorterWord = currentWord.filter((word, index) => {
+        if (index !== lastIndex) {
+          return word;
+        }
+        return null;
+      });
+
+      setCurrentWord(shorterWord);
     } else if (currentWord.length === 5 && e.target.innerText === 'Enter') {
-      console.log('keyboard enter')
-        //RUN THE CHECK ON THE ROW TO SEE WHAT IS CORRECT and CHANGE CSS to SHOW THAT
+      setAttemptCount(attemptCount + 1);
+      setCurrentWord([]);
+      //CHECK results of current word
         //Update keyboard to reflect that
     }
   }
