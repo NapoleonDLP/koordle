@@ -19,11 +19,12 @@ const Board = ({ currentWord, attemptCount }) => {
     let updatedBoard = board.map((boardRow, index) => {
       if(index === row) {
         boardRow[currentSquare] = currentWord[currentSquare];
+
+        if (boardRow[currentSquare+1]) {
+          boardRow[currentSquare+1] = null;
+        }
       }
 
-      if (boardRow[currentSquare+1]) {
-        boardRow[currentSquare+1] = null;
-      }
 
       return boardRow;
     });
