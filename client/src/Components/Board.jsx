@@ -13,18 +13,23 @@ const Board = ({ currentWord, attemptCount }) => {
                                     ]);
 
   useEffect(() => {
-    if(currentWord.length > 0) {
-      let row = attemptCount;
-      let currentSquare = currentWord.length-1;
-      let updatedBoard = board.map((boardRow, index) => {
-        if(index === row) {
-          boardRow[currentSquare] = currentWord[currentSquare];
-        }
-        return boardRow;
-      })
+    console.log('CurrentWord: ', currentWord)
+    let row = attemptCount;
+    let currentSquare = currentWord.length-1;
 
-      setBoard(updatedBoard)
-    }
+    let updatedBoard = board.map((boardRow, index) => {
+      if(index === row) {
+        boardRow[currentSquare] = currentWord[currentSquare];
+      }
+
+      if (boardRow[currentSquare+1]) {
+        boardRow[currentSquare+1] = null;
+      }
+
+      return boardRow;
+    });
+    console.log('Updated board before setting', updatedBoard)
+    setBoard(updatedBoard)
   }, [currentWord])
 
   return (
