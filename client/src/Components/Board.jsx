@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
 
-const Board = ({ currentWord, attemptCount }) => {
+const Board = ({ currentWord, attemptCount, check, setCheck, answer}) => {
   const [board, setBoard] = useState([[null, null, null, null, null],
                                     [null, null, null, null, null],
                                     [null, null, null, null, null],
@@ -9,6 +9,8 @@ const Board = ({ currentWord, attemptCount }) => {
                                     [null, null, null, null, null],
                                     [null, null, null, null, null]
                                     ]);
+  const [ LetterRightPlace, setLetterRightPlace] = useState([]);
+  const [ LetterWrongPlace, setLetterWrongPlace] = useState([]);
 
   useEffect(() => {
     let row = attemptCount;
@@ -23,11 +25,43 @@ const Board = ({ currentWord, attemptCount }) => {
         }
       }
 
-
       return boardRow;
     });
+
+
+
     setBoard(updatedBoard)
-  }, [currentWord])
+  }, [currentWord]);
+
+  useEffect(() => {
+    checkRow();
+  }, [check])
+
+  const checkRow = () => {
+    let row = board[attemptCount-1];
+      if (row) {
+        for (let i = 0; i < row.length; i++) {
+          let newCount = ((attemptCount-1) * 5) + i;
+          console.log("nuCount: ", newCount, row[i], answer[i] )
+          if (row[i] === answer[i]) {
+            console.log(' ONE:')
+            setLetterRightPlace((oldList) => [...new Set([...oldList, newCount])]);
+          } else if (answer.includes(row[i])) {
+            console.log("WRONG SPOT")
+            setLetterWrongPlace((oldList) => [...new Set([...oldList, newCount])]);
+          }
+        }
+      }
+      setCheck(false)
+  };
+
+  const setColor = (boxNumber) => {
+    if (LetterRightPlace.includes(boxNumber)) {
+      return 'green';
+    } else if (LetterWrongPlace.includes(boxNumber)) {
+      return 'yellow';
+    }
+  }
 
   return (
     <div className='board'>
@@ -37,8 +71,10 @@ const Board = ({ currentWord, attemptCount }) => {
             {
               row.map((square, squareIndex) => {
                 let location = rowIndex + '-' + squareIndex;
+                let squareId = (rowIndex * 5) + squareIndex;
+                let color = setColor(squareId);
                 return (
-                  <li id={'square-' + location } className='square' key={[rowIndex, squareIndex]}>
+                  <li id={'square-' + location } className={ 'square ' + color } key={[rowIndex, squareIndex]}>
                     <h2>{ square }</h2>
                   </li>
                   )
