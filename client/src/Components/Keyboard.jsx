@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './Keyboard.css';
 
-const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, correctLetterRightPlace, setCorrectLetterRightPlace, correctLetterWrongPlace, setCorrectLetterWrongPlace }) => {
-  const [ keyboard, setKeyboard ] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount}) => {
+  const [keyboard, setKeyboard] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
                                               ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
                                               ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
                                             ]);
-  const [ lettersUsed, setLettersUsed ] = useState([]);
+  const [lettersUsed, setLettersUsed] = useState([]);
+  const [correctLetterWrongPlace, setCorrectLetterWrongPlace] = useState([]);
+  const [correctLetterRightPlace, setCorrectLetterRightPlace] = useState([]);
 
   const handleKeyboardEntry = (e) => {
     let entry = null;
@@ -29,22 +31,20 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
 
       setCurrentWord(shorterWord);
     } else if (currentWord.length === 5 && entry === 'Enter') {
-      checkLetters(currentWord)
+      checkLetters(currentWord);
       setAttemptCount(attemptCount + 1);
       setCurrentWord([]);
-
     }
   }
 
   const checkLetters = (word, answer = 'biter') => {
     for (let i = 0; i < word.length; i++) {
       if (word[i] === answer[i]) {
-        setCorrectLetterRightPlace([...correctLetterRightPlace].concat([word[i]]));
+        setCorrectLetterRightPlace((oldMatch) => [...oldMatch, word[i]]);
       } else if (answer.includes(word[i])) {
-        setCorrectLetterWrongPlace([...correctLetterWrongPlace].concat([word[i]]));
+        setCorrectLetterWrongPlace((oldFound) => [...oldFound, word[i]]);
       } else {
-        let currentWordCopy = [...new Set([...currentWord].concat(lettersUsed))];
-        setLettersUsed(currentWordCopy);
+        setLettersUsed((oldUsed) => [...oldUsed, word[i]]);
       }
     }
   }
