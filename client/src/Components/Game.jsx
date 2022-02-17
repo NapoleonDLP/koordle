@@ -6,26 +6,25 @@ import './Game.css';
 const Game = () => {
   const [currentWord, setCurrentWord] = useState([]);
   const [attemptCount, setAttemptCount] = useState(0);
-  const [correctLetterWrongPlace, setCorrectLetterWrongPlace] = useState([]);
-  const [correctLetterRightPlace, setCorrectLetterRightPlace] = useState([]);
+  const [check, setCheck] = useState(false);
+  const [answer, setAnswer] = useState('apple');
 
   return (
     <>
       <Board
         currentWord={ currentWord }
         attemptCount={ attemptCount }
-        correctLetterWrongPlace={ correctLetterWrongPlace }
-        correctLetterRightPlace={ correctLetterRightPlace }
+        check={ check }
+        setCheck={ setCheck }
+        answer={ answer }
         ></Board>
       <Keyboard
         currentWord={ currentWord }
         setCurrentWord={ setCurrentWord }
         attemptCount={ attemptCount }
         setAttemptCount={ setAttemptCount }
-        correctLetterRightPlace={ correctLetterRightPlace }
-        setCorrectLetterRightPlace={ setCorrectLetterRightPlace }
-        correctLetterWrongPlace={ correctLetterWrongPlace }
-        setCorrectLetterWrongPlace={ setCorrectLetterWrongPlace }
+        setCheck={ setCheck }
+        answer={ answer }
         ></Keyboard>
     </>
   )
