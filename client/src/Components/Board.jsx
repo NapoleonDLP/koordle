@@ -42,12 +42,9 @@ const Board = ({ currentWord, attemptCount, check, setCheck, answer}) => {
       if (row) {
         for (let i = 0; i < row.length; i++) {
           let newCount = ((attemptCount-1) * 5) + i;
-          console.log("nuCount: ", newCount, row[i], answer[i] )
           if (row[i] === answer[i]) {
-            console.log(' ONE:')
             setLetterRightPlace((oldList) => [...new Set([...oldList, newCount])]);
           } else if (answer.includes(row[i])) {
-            console.log("WRONG SPOT")
             setLetterWrongPlace((oldList) => [...new Set([...oldList, newCount])]);
           }
         }
