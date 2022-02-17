@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Keyboard.css';
 
-const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount}) => {
+const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, setCheck, answer}) => {
   const [keyboard, setKeyboard] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
                                               ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
                                               ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
@@ -34,10 +34,11 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount})
       checkLetters(currentWord);
       setAttemptCount(attemptCount + 1);
       setCurrentWord([]);
+      setCheck(true);
     }
   }
 
-  const checkLetters = (word, answer = 'biter') => {
+  const checkLetters = (word) => {
     for (let i = 0; i < word.length; i++) {
       if (word[i] === answer[i]) {
         setCorrectLetterRightPlace((oldMatch) => [...oldMatch, word[i]]);
