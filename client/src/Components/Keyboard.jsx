@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { checkWord } from './../helpers.js';
 import './Keyboard.css';
 
 const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount }) => {
-
   const [ keyboard, setKeyboard ] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
                                               ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
                                               ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
                                             ]);
+  const [ lettersUsed, setLettersUsed ] = useState([]);
 
-  const handleKeyboardClick = (e) => {
-    if (currentWord.length < 5 && e.target.innerText !== 'Enter' && e.target.innerText !== 'Delete') {
-      setCurrentWord(currentWord.concat([e.target.innerText]));
-    } else if (e.target.innerText === 'Delete') {
+  const handleKeyboardEntry = (e) => {
+    let entry = null;
+
+    if (e.type === 'click') {
+      entry = e.target.innerText;
+    }
+
+    if (currentWord.length < 5 && entry !== 'Enter' && entry !== 'Delete' && entry !== 'Backspace') {
+      setCurrentWord(currentWord.concat([entry]));
+    } else if (entry === 'Delete' || entry === 'Backspace') {
       let lastIndex = currentWord.length-1;
 
       let shorterWord = currentWord.filter((word, index) => {
@@ -22,9 +29,12 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount }
       });
 
       setCurrentWord(shorterWord);
-    } else if (currentWord.length === 5 && e.target.innerText === 'Enter') {
+    } else if (currentWord.length === 5 && entry === 'Enter') {
+      let currentWordCopy = [...new Set([...currentWord].concat(lettersUsed))];
+      setLettersUsed(currentWordCopy);
       setAttemptCount(attemptCount + 1);
       setCurrentWord([]);
+      // let matched = checkWord(currentWord, 'biter');
       //TODO: Check word results
         // Update CSS for Board based on results
         // Update CSS for Keyboard
@@ -37,11 +47,16 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount }
         keyboard.map((row, keyBoardRowIndex) => (
           <ul className="row" key={ keyBoardRowIndex }>
             {
-              row.map((keyboardButton, keyboardButtonIndex) => (
-                <li onClick={ handleKeyboardClick } className='square' key={ keyboardButtonIndex }>
-                  { keyboardButton }
-                </li>
-              ))
+              row.map((keyboardButton, keyboardButtonIndex) => {
+                let grey = lettersUsed.includes(keyboardButton) ? 'grey' : null;
+                let classes = 'square ' + grey;
+
+                return (
+                  <li onClick={ handleKeyboardEntry } className={ classes } key={ keyboardButtonIndex }>
+                    { keyboardButton }
+                  </li>
+                )
+              })
             }
           </ul>
         ))
