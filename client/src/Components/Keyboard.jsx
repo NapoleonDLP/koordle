@@ -74,7 +74,7 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
 
                 return (
                   <li id={ (keyboardButton === 'Enter' ? 'Enter' : (keyboardButton === 'Delete' ? 'Delete' : '')) } onClick={ handleKeyboardEntry } className={ classes } key={ keyboardButtonIndex }>
-                    { keyboardButton }
+                    <h3>{ keyboardButton }</h3>
                   </li>
                 )
               })
