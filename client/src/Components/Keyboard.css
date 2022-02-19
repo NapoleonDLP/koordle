@@ -10,15 +10,18 @@
 }
 
 .grey {
-  background-color: darkgrey;
+  background-color: rgb(116, 115, 115);
+  color: aliceblue;
 }
 
 .green {
-  background-color: green;
+  background-color: rgb(46, 201, 46);
+  color: aliceblue;
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: rgb(255, 191, 0);
+  color: aliceblue;
 }
 
 #Enter {
