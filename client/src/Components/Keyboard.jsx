@@ -66,14 +66,14 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
     <div className='board'>
       {
         keyboard.map((row, keyBoardRowIndex) => (
-          <ul className="row" key={ keyBoardRowIndex }>
+          <ul className="row keyRow" key={ keyBoardRowIndex }>
             {
               row.map((keyboardButton, keyboardButtonIndex) => {
-                let color = setKeyColor(keyboardButton, keyboardButtonIndex, 'biter');
-                let classes = 'square ' + color;
+                let color = setKeyColor(keyboardButton);
+                let classes = 'square button ' + color;
 
                 return (
-                  <li onClick={ handleKeyboardEntry } className={ classes } key={ keyboardButtonIndex }>
+                  <li id={ (keyboardButton === 'Enter' ? 'Enter' : (keyboardButton === 'Delete' ? 'Delete' : '')) } onClick={ handleKeyboardEntry } className={ classes } key={ keyboardButtonIndex }>
                     { keyboardButton }
                   </li>
                 )

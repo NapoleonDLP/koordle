@@ -1,4 +1,12 @@
 /* Keyboard has same style and layout as Board. So I used that css */
+.button {
+
+}
+
+.keyRow {
+
+}
+
 .grey {
   background-color: darkgrey;
 }
@@ -9,4 +17,12 @@
 
 .yellow {
   background-color: yellow;
+}
+
+#Enter {
+  width: 120px;
+}
+
+#Delete {
+  width: 120px;
 }
