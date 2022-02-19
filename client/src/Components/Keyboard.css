@@ -1,6 +1,8 @@
 /* Keyboard has same style and layout as Board. So I used that css */
 .button {
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .keyRow {
