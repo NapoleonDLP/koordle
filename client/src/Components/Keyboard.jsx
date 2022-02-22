@@ -10,6 +10,13 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
   const [correctLetterWrongPlace, setCorrectLetterWrongPlace] = useState([]);
   const [correctLetterRightPlace, setCorrectLetterRightPlace] = useState([]);
 
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyboardEntry);
+    return () => {
+      document.removeEventListener('keydown', handleKeyboardEntry);
+    }
+  }, [ currentWord ]);
+
   const handleKeyboardEntry = (e) => {
     let entry = null;
 
@@ -17,8 +24,12 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
       entry = e.target.innerText;
     }
 
-    if (currentWord.length < 5 && entry !== 'Enter' && entry !== 'Delete' && entry !== 'Backspace') {
-      setCurrentWord(currentWord.concat([entry]));
+    if (e.type === 'keydown') {
+      entry = e.key;
+    }
+
+    if ((currentWord.length < 5) && (entry !== 'Enter') && (entry !== 'Delete') && (entry !== 'Backspace')) {
+      setCurrentWord([...currentWord, entry]);
     } else if (entry === 'Delete' || entry === 'Backspace') {
       let lastIndex = currentWord.length-1;
 
