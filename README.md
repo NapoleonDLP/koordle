@@ -1,2 +1,2 @@
 # koordle
-Broke wordle
+Bootleg wordle
