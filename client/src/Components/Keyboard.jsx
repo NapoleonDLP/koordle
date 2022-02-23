@@ -11,26 +11,25 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
   const [correctLetterRightPlace, setCorrectLetterRightPlace] = useState([]);
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyboardEntry);
+    document.addEventListener('keydown', handleEvent);
     return () => {
-      document.removeEventListener('keydown', handleKeyboardEntry);
+      document.removeEventListener('keydown', handleEvent);
     }
   }, [ currentWord ]);
 
-  const handleKeyboardEntry = (e) => {
-    let entry = null;
-
-    if (e.type === 'click') {
-      entry = e.target.innerText;
+  const handleEvent = (e) =>{
+    const key = e.key ? e.key : e.target.innerHTML;
+    const lowerCaseKey = key.toLowerCase();
+    const isKeyLetter = key.match(/[a-z]/i) && key.length === 1;
+    if (isKeyLetter || lowerCaseKey === 'enter' || lowerCaseKey === 'delete' || lowerCaseKey === 'backspace') {
+      handleKeyboardEntry(lowerCaseKey);
     }
+  }
 
-    if (e.type === 'keydown') {
-      entry = e.key;
-    }
-
-    if ((currentWord.length < 5) && (entry !== 'Enter') && (entry !== 'Delete') && (entry !== 'Backspace')) {
+  const handleKeyboardEntry = (entry) => {
+    if ((currentWord.length < 5) && (entry !== 'enter') && (entry !== 'delete') && (entry !== 'backspace')) {
       setCurrentWord([...currentWord, entry]);
-    } else if (entry === 'Delete' || entry === 'Backspace') {
+    } else if (entry === 'delete' || entry === 'backspace') {
       let lastIndex = currentWord.length-1;
 
       let shorterWord = currentWord.filter((word, index) => {
@@ -41,7 +40,7 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
       });
 
       setCurrentWord(shorterWord);
-    } else if (currentWord.length === 5 && entry === 'Enter') {
+    } else if (currentWord.length === 5 && entry === 'enter') {
       checkLetters(currentWord);
       setAttemptCount(attemptCount + 1);
       setCurrentWord([]);
@@ -84,7 +83,7 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
                 let classes = 'square button ' + color;
 
                 return (
-                  <li id={ (keyboardButton === 'Enter' ? 'Enter' : (keyboardButton === 'Delete' ? 'Delete' : '')) } onClick={ handleKeyboardEntry } className={ classes } key={ keyboardButtonIndex }>
+                  <li id={ (keyboardButton === 'Enter' ? 'Enter' : (keyboardButton === 'Delete' ? 'Delete' : '')) } onClick={ handleEvent } className={ classes } key={ keyboardButtonIndex }>
                     <h3>{ keyboardButton }</h3>
                   </li>
                 )
