@@ -26,8 +26,8 @@ const Game = () => {
     checkWin();
   }, [ attemptCount ])
 
-  const checkWin = () => {
-    let currentWordString = currentWord.join('');
+  const checkWin = async () => {
+    let currentWordString = await currentWord.join('');
     if (answer === currentWordString && attemptCount < 6) {
       setDidWin(true);
     } else if ( attemptCount >= 6 && didWin === null) {
