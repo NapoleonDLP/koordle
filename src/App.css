@@ -1,5 +1,10 @@
+#root {
+  display: flex;
+}
+
 .App {
   text-align: center;
+  flex-shrink: 1;
 }
 
 .App-logo {
