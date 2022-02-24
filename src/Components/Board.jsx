@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
 
-const Board = ({ currentWord, attemptCount, check, setCheck, answer}) => {
+const Board = ({ currentWord, attemptCount, check, setCheck, answer, result }) => {
   const [board, setBoard] = useState([[null, null, null, null, null],
                                     [null, null, null, null, null],
                                     [null, null, null, null, null],
@@ -16,21 +16,20 @@ const Board = ({ currentWord, attemptCount, check, setCheck, answer}) => {
     let row = attemptCount;
     let currentSquare = currentWord.length-1;
 
-    let updatedBoard = board.map((boardRow, index) => {
-      if(index === row) {
-        boardRow[currentSquare] = currentWord[currentSquare];
+    if (result === null) {
+      let updatedBoard = board.map((boardRow, index) => {
+        if(index === row) {
+          boardRow[currentSquare] = currentWord[currentSquare];
 
-        if (boardRow[currentSquare+1]) {
-          boardRow[currentSquare+1] = null;
+          if (boardRow[currentSquare+1]) {
+            boardRow[currentSquare+1] = null;
+          }
         }
-      }
 
-      return boardRow;
-    });
-
-
-
-    setBoard(updatedBoard)
+        return boardRow;
+      });
+      setBoard(updatedBoard)
+    }
   }, [currentWord]);
 
   useEffect(() => {

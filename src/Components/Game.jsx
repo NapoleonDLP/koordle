@@ -43,6 +43,7 @@ const Game = () => {
         check={ check }
         setCheck={ setCheck }
         answer={ answer }
+        result={ didWin }
         ></Board>
       <Keyboard
         currentWord={ currentWord }
