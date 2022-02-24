@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Keyboard.css';
 
-const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, setCheck, answer}) => {
+const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, setCheck, answer, result }) => {
   const [keyboard, setKeyboard] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
                                               ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
                                               ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
@@ -21,7 +21,7 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
     const key = e.key ? e.key : e.target.innerHTML;
     const lowerCaseKey = key.toLowerCase();
     const isKeyLetter = key.match(/[a-z]/i) && key.length === 1;
-    if (isKeyLetter || lowerCaseKey === 'enter' || lowerCaseKey === 'delete' || lowerCaseKey === 'backspace') {
+    if ((isKeyLetter || lowerCaseKey === 'enter' || lowerCaseKey === 'delete' || lowerCaseKey === 'backspace') && (result === null)) {
       handleKeyboardEntry(lowerCaseKey);
     }
   }
