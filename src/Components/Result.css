@@ -1,0 +1,50 @@
+.modal {
+  background-color:cadetblue;
+  height: 50rem;
+  width: 35rem;
+  margin-top: -50rem;
+  align-self: center;
+  border-radius: .7rem;
+  box-shadow: 9px 10px 11px #b1b1b1;
+}
+
+#replay {
+  height: 3rem;
+  width: 8rem;
+  border-radius: .5rem;
+}
+
+.trophyContainer {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.medalContainer {
+  margin-top: -4rem;
+  border-radius: 50%;
+  background-color: cadetblue;
+  width: 35%;
+  height: 10rem;
+}
+
+.medal {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: cadetblue;
+  border-radius: 20%;
+  width: 60%;
+}
+
+.result {
+
+}
+
+
+#win {
+
+}
+
+#lose {
+
+}

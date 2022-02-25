@@ -28,7 +28,7 @@ const Game = () => {
 
   const checkWin = async () => {
     let currentWordString = await currentWord.join('');
-    if (answer === currentWordString && attemptCount < 6) {
+    if (answer === currentWordString && attemptCount <= 6) {
       setDidWin(true);
     } else if ( attemptCount >= 6 && didWin === null) {
       setDidWin(false);
@@ -36,7 +36,7 @@ const Game = () => {
   }
 
   return (
-    <>
+    <div id='game'>
       <Board
         currentWord={ currentWord }
         attemptCount={ attemptCount }
@@ -44,7 +44,7 @@ const Game = () => {
         setCheck={ setCheck }
         answer={ answer }
         result={ didWin }
-        ></Board>
+      ></Board>
       <Keyboard
         currentWord={ currentWord }
         setCurrentWord={ setCurrentWord }
@@ -53,9 +53,11 @@ const Game = () => {
         setCheck={ setCheck }
         answer={ answer }
         result={ didWin }
-        ></Keyboard>
-        <Result result={ didWin } />
-    </>
+      ></Keyboard>
+      <Result
+        result={ didWin }
+      ></Result>
+    </div>
   )
 };
 

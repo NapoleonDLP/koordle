@@ -1,13 +1,22 @@
 import React from 'react';
+import './Result.css';
+import trophy from './trophy.png';
+import sadFace from './sad-face.png'
 
 const Result = ({ result }) => {
-  console.log('RESULT: ', result)
   return (
     (result === null ? null : (
-      <>
-        { result ? <h1>WINNNAH!</h1> : <h1>YOU LOOSE!</h1> }
-        <button onClick={() => window.location.reload(false)}> Play Again </button>
-      </>
+      <div className='modal'>
+        <div className='trophyContainer'>
+          <a className='medalContainer'>
+            {
+              result ? <img src={ trophy } className='medal' alt='trophy'/> : <img src={ sadFace } className='medal' alt='sad-face'/>
+            }
+          </a>
+        </div>
+        { result ? <h1 id='win'>Congratulations!</h1> : <h1 id='lose'>YOU LOSE!</h1> }
+        <button id='replay' onClick={() => window.location.reload(false)}> Play Again </button>
+      </div>
     ))
   )
 }
