@@ -16,7 +16,7 @@ const Game = () => {
   }, [])
 
   const loadWord = () => {
-    fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/new-word')
+    fetch(process.env.REACT_APP_KOORDLE_API_URL + '/new-word')
     .then(data => data.json())
     .then(word => setAnswer(word.newWord))
     .catch(e => console.log(e))
