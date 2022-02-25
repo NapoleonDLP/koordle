@@ -1,6 +1,7 @@
 import React from 'react';
 import './Result.css';
 import trophy from './trophy.png';
+import sadFace from './sad-face.png'
 
 const Result = ({ result }) => {
   return (
@@ -8,7 +9,9 @@ const Result = ({ result }) => {
       <div className='modal'>
         <div className='trophyContainer'>
           <a className='medalContainer'>
-            <img src={trophy} className='medal' alt='trophy'/>
+            {
+              result ? <img src={ trophy } className='medal' alt='trophy'/> : <img src={ sadFace } className='medal' alt='sad-face'/>
+            }
           </a>
         </div>
         { result ? <h1 id='win'>Congratulations!</h1> : <h1 id='lose'>YOU LOSE!</h1> }
