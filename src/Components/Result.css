@@ -4,8 +4,8 @@
   width: 35rem;
   margin-top: -40rem;
   align-self: center;
-  border-radius: 1rem;
-  box-shadow: 5px 10px #b1b1b1;
+  border-radius: .7rem;
+  box-shadow: 9px 10px 11px #b1b1b1;
 }
 
 .result {
