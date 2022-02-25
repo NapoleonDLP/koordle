@@ -2,7 +2,6 @@ import React from 'react';
 import './Result.css';
 
 const Result = ({ result }) => {
-  console.log('RESULT: ', result)
   return (
     (result === null ? null : (
       <div className='modal'>
