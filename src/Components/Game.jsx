@@ -16,7 +16,7 @@ const Game = () => {
   }, [])
 
   const loadWord = () => {
-    fetch(process.env.REACT_APP_KOORDLE_API_URL + '/new-word')
+    fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/new-word')
     .then(data => data.json())
     .then(word => setAnswer(word.newWord))
     .catch(e => console.log(e))
@@ -36,7 +36,7 @@ const Game = () => {
   }
 
   return (
-    <>
+    <div id='game'>
       <Board
         currentWord={ currentWord }
         attemptCount={ attemptCount }
@@ -44,7 +44,7 @@ const Game = () => {
         setCheck={ setCheck }
         answer={ answer }
         result={ didWin }
-        ></Board>
+      ></Board>
       <Keyboard
         currentWord={ currentWord }
         setCurrentWord={ setCurrentWord }
@@ -53,9 +53,11 @@ const Game = () => {
         setCheck={ setCheck }
         answer={ answer }
         result={ didWin }
-        ></Keyboard>
-        <Result result={ didWin } />
-    </>
+      ></Keyboard>
+      <Result
+        result={ didWin }
+      ></Result>
+    </div>
   )
 };
 

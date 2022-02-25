@@ -1,13 +1,14 @@
 import React from 'react';
+import './Result.css';
 
 const Result = ({ result }) => {
   console.log('RESULT: ', result)
   return (
     (result === null ? null : (
-      <>
-        { result ? <h1>WINNNAH!</h1> : <h1>YOU LOOSE!</h1> }
-        <button onClick={() => window.location.reload(false)}> Play Again </button>
-      </>
+      <div className='modal'>
+        { result ? <h1 id='win'>WINNNAH!</h1> : <h1 id='lose'>YOU LOSE!</h1> }
+        <button id='reload' onClick={() => window.location.reload(false)}> Play Again </button>
+      </div>
     ))
   )
 }
