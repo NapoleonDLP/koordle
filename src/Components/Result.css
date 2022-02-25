@@ -1,0 +1,25 @@
+.modal {
+  background-color:cadetblue;
+  height: 20rem;
+  width: 35rem;
+  margin-top: -40rem;
+  align-self: center;
+  border-radius: 1rem;
+  box-shadow: 5px 10px #b1b1b1;
+}
+
+.result {
+
+}
+
+#reload {
+
+}
+
+#win {
+
+}
+
+#lose {
+
+}
