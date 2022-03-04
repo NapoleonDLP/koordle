@@ -3,7 +3,7 @@ import './Result.css';
 import trophy from './trophy.png';
 import sadFace from './sad-face.png'
 
-const Result = ({ result }) => {
+const Result = ({ result, answer }) => {
   return (
     (result === null ? null : (
       <div className='modal'>
@@ -16,6 +16,7 @@ const Result = ({ result }) => {
         </div>
         { result ? <h1 id='win'>Congratulations!</h1> : <h1 id='lose'>YOU LOSE!</h1> }
         <button id='replay' onClick={() => window.location.reload(false)}> Play Again </button>
+        <h1>{ answer } was the word</h1>
       </div>
     ))
   )

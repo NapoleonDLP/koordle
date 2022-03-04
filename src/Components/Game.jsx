@@ -56,6 +56,7 @@ const Game = () => {
       ></Keyboard>
       <Result
         result={ didWin }
+        answer={ answer }
       ></Result>
     </div>
   )
