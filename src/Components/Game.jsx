@@ -10,6 +10,7 @@ const Game = () => {
   const [check, setCheck] = useState(false);
   const [answer, setAnswer] = useState(null);
   const [didWin, setDidWin] = useState(null);
+  const [game, setGame ] = useState(null);
 
   useEffect(() => {
     loadWord();
@@ -25,7 +26,7 @@ const Game = () => {
     }, body: stringifiedData })
     //FOR NOW THE GAME RETURNS WITH THE WORD PROPERTY/ Remove when answer is checkd in DB/
     .then(data => data.json())
-    .then(game => setAnswer(game.word))
+    .then(game => setGame(game))
     .catch(e => console.log(e))
   }
 
@@ -47,14 +48,18 @@ const Game = () => {
     })
       .then(data => data.json())
       .then(game => {
-        const entryResult = game.attempts[attemptCount-1].attemptedResult;
+        //TODO: move this logic to handlers directory
+        const entries = game.attempts;
+        const entryResult = entries[entries.length-1].attemptedResult;
         if (entryResult === true) {
           setDidWin(true);
         }
 
-        if (entryResult === false && attemptCount >= 6) {
+        if (entryResult === false && entries.length >= 6) {
           setDidWin(false);
         }
+
+        setGame(game);
       })
       .catch(e => console.log(e));
   }
