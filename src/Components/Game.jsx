@@ -16,9 +16,16 @@ const Game = () => {
   }, [])
 
   const loadWord = () => {
-    fetch(process.env.REACT_APP_KOORDLE_API_URL + '/new-word')
+    let stringifiedData = JSON.stringify({
+      user_id: process.env.REACT_APP_TEST_USER_ID
+    });
+
+    fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/new-game', { method: 'POST', headers: {
+      'Content-Type': 'application/json',
+    }, body: stringifiedData })
+    //FOR NOW THE GAME RETURNS WITH THE WORD PROPERTY/ Remove when answer is checkd in DB/
     .then(data => data.json())
-    .then(word => setAnswer(word.newWord))
+    .then(game => setAnswer(game.word))
     .catch(e => console.log(e))
   }
 
@@ -27,12 +34,29 @@ const Game = () => {
   }, [ attemptCount ])
 
   const checkWin = async () => {
-    let currentWordString = await currentWord.join('');
-    if (answer === currentWordString && attemptCount <= 6) {
-      setDidWin(true);
-    } else if ( attemptCount >= 6 && didWin === null) {
-      setDidWin(false);
-    }
+    let currentWordString = currentWord.join('');
+    let userId = process.env.REACT_APP_TEST_USER_ID;
+    const data = { "user_id": userId, "word": currentWordString }
+
+    fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/word-check', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(data => data.json())
+      .then(game => {
+        const entryResult = game.attempts[attemptCount-1].attemptedResult;
+        if (entryResult === true) {
+          setDidWin(true);
+        }
+
+        if (entryResult === false && attemptCount >= 6) {
+          setDidWin(false);
+        }
+      })
+      .catch(e => console.log(e));
   }
 
   return (
