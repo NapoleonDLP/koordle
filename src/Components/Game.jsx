@@ -8,10 +8,10 @@ const Game = () => {
   const [currentWord, setCurrentWord] = useState([]);
   const [attemptCount, setAttemptCount] = useState(0);
   const [check, setCheck] = useState(false);
-  const [answer, setAnswer] = useState(null);
   const [didWin, setDidWin] = useState(null);
   const [game, setGame ] = useState(null);
 
+  //TODO: Change loadWord to startGame
   useEffect(() => {
     loadWord();
   }, [])
@@ -26,7 +26,9 @@ const Game = () => {
     }, body: stringifiedData })
     //FOR NOW THE GAME RETURNS WITH THE WORD PROPERTY/ Remove when answer is checkd in DB/
     .then(data => data.json())
-    .then(game => setGame(game))
+    .then(game => {
+      setGame(game);
+    })
     .catch(e => console.log(e))
   }
 
@@ -35,33 +37,35 @@ const Game = () => {
   }, [ attemptCount ])
 
   const checkWin = async () => {
-    let currentWordString = currentWord.join('');
-    let userId = process.env.REACT_APP_TEST_USER_ID;
-    const data = { "user_id": userId, "word": currentWordString }
+    if (currentWord.length > 0) {
+      let currentWordString = currentWord.join('');
+      let userId = process.env.REACT_APP_TEST_USER_ID;
+      const data = { "user_id": userId, "word": currentWordString }
 
-    fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/word-check', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(data => data.json())
-      .then(game => {
-        //TODO: move this logic to handlers directory
-        const entries = game.attempts;
-        const entryResult = entries[entries.length-1].attemptedResult;
-        if (entryResult === true) {
-          setDidWin(true);
-        }
-
-        if (entryResult === false && entries.length >= 6) {
-          setDidWin(false);
-        }
-
-        setGame(game);
+      await fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/word-check', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(data),
       })
-      .catch(e => console.log(e));
+        .then(data => data.json())
+        .then(game => {
+          //TODO: move this logic to handlers directory
+          const entries = game.attempts;
+          const entryResult = entries[entries.length-1].attemptedResult;
+          if (entryResult === true) {
+            setDidWin(true);
+          }
+
+          if (entryResult === false && entries.length >= 6) {
+            setDidWin(false);
+          }
+
+          setGame(game);
+        })
+        .catch(e => console.log(e));
+    }
   }
 
   return (
@@ -71,8 +75,8 @@ const Game = () => {
         attemptCount={ attemptCount }
         check={ check }
         setCheck={ setCheck }
-        answer={ answer }
         result={ didWin }
+        game={ game }
       ></Board>
       <Keyboard
         currentWord={ currentWord }
@@ -80,12 +84,14 @@ const Game = () => {
         attemptCount={ attemptCount }
         setAttemptCount={ setAttemptCount }
         setCheck={ setCheck }
-        answer={ answer }
         result={ didWin }
+        game={ game }
+        checkWin={ checkWin }
       ></Keyboard>
       <Result
         result={ didWin }
-        answer={ answer }
+        game={ game }
+        loadGame={ loadWord }
       ></Result>
     </div>
   )
