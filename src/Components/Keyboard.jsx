@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Keyboard.css';
 
-const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, setCheck, answer, result }) => {
+const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, setCheck, result, game, checkWin }) => {
   const [keyboard, setKeyboard] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
                                               ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
                                               ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
@@ -18,18 +18,26 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
   }, [ currentWord ]);
 
   const handleEvent = (e) =>{
-    const key = e.key ? e.key : e.target.innerHTML;
+    const key = e.key ? e.key : e.target.outerText;
     const lowerCaseKey = key.toLowerCase();
     const isKeyLetter = key.match(/[a-z]/i) && key.length === 1;
-    if ((isKeyLetter || lowerCaseKey === 'enter' || lowerCaseKey === 'delete' || lowerCaseKey === 'backspace') && (result === null)) {
+
+    if ((lowerCaseKey === 'enter' || lowerCaseKey === 'delete' || lowerCaseKey === 'backspace') && (result === null)) {
       handleKeyboardEntry(lowerCaseKey);
+    }
+
+    if (isKeyLetter && currentWord.length < 5 && result === null) {
+      addLetterToWord(lowerCaseKey);
     }
   }
 
-  const handleKeyboardEntry = (entry) => {
-    if ((currentWord.length < 5) && (entry !== 'enter') && (entry !== 'delete') && (entry !== 'backspace')) {
-      setCurrentWord([...currentWord, entry]);
-    } else if (entry === 'delete' || entry === 'backspace') {
+  const addLetterToWord = (entry) => {
+    setCurrentWord([...currentWord, entry]);
+  }
+
+  const handleKeyboardEntry = async (entry) => {
+    //TODO: Fix Bug: Currently does not update board when you delete or backspace
+    if (entry === 'delete' || entry === 'backspace') {
       let lastIndex = currentWord.length-1;
 
       let shorterWord = currentWord.filter((word, index) => {
@@ -41,21 +49,34 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
 
       setCurrentWord(shorterWord);
     } else if (currentWord.length === 5 && entry === 'enter') {
-      checkLetters(currentWord);
-      setAttemptCount(attemptCount + 1);
-      setCurrentWord([]);
-      setCheck(true);
+      await checkWin();
+      // await checkLetters(currentWord);
+      await setCurrentWord([]);
     }
   }
 
-  const checkLetters = (word) => {
-    for (let i = 0; i < word.length; i++) {
-      if (word[i] === answer[i]) {
-        setCorrectLetterRightPlace((oldMatch) => [...oldMatch, word[i]]);
-      } else if (answer.includes(word[i])) {
-        setCorrectLetterWrongPlace((oldFound) => [...oldFound, word[i]]);
-      } else {
-        setLettersUsed((oldUsed) => [...oldUsed, word[i]]);
+  useEffect(() => {
+    checkLetters();
+  }, [ game ]);
+
+  const checkLetters = () => {
+    if (game) {
+      if (game.attempts.length > 0) {
+        for (let i = 0; i < game.attempts.length; i++) {
+          let attempt = game.attempts[i];
+          for (let j = 0; j < attempt.score.length; j++) {
+            let points = attempt.score[j];
+            let letter = attempt.attemptedWord[j];
+
+            if (points === '2') {
+              setCorrectLetterRightPlace((oldMatch) => [...oldMatch, letter]);
+            } else if (points === '1') {
+              setCorrectLetterWrongPlace((oldFound) => [...oldFound, letter]);
+            } else {
+              setLettersUsed((oldUsed) => [...oldUsed, letter]);
+            }
+          }
+        }
       }
     }
   }
