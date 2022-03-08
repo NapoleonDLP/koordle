@@ -18,11 +18,15 @@ const Board = ({ currentWord, result, game }) => {
 
   const updateBoard = async () => {
     const currentRow = game.attempts.length;
+    const updatedRow = board[currentRow].map((currentSquare, squareIndex, originalRow) => {
+      if (squareIndex >= currentWord.length) {
+        return null;
+      }
 
-    const updatedRow = board[currentRow].map((currentSquare, squareIndex) => {
       if (currentWord[squareIndex]) {
         currentSquare = currentWord[squareIndex];
       }
+
       return currentSquare;
     })
 
