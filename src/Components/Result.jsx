@@ -8,16 +8,16 @@ const Result = ({ result, game }) => {
 
   useEffect(() => {
     if (result !== null) {
-      const fetchData = async () => {
-        await fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/get-answer/' + game._id)
-        .then(data => data.json())
-        .then(res => setAnswer(res.answer))
-        .catch(e => console.log(e));
-      }
-
       fetchData();
     }
   }, [ result ])
+
+  const fetchData = async () => {
+    await fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/get-answer/' + game._id)
+    .then(data => data.json())
+    .then(res => setAnswer(res.answer))
+    .catch(e => console.log(e));
+  }
 
   return (
     (result === null ? null : (
