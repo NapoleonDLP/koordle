@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Keyboard.css';
 
-const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, setCheck, result, game, checkWin }) => {
+const Keyboard = ({ setCurrentWord, currentWord, result, game, checkWin }) => {
   const [keyboard, setKeyboard] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
                                               ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
                                               ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
@@ -36,7 +36,6 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
   }
 
   const handleKeyboardEntry = async (entry) => {
-    //TODO: Fix Bug: Currently does not update board when you delete or backspace
     if (entry === 'delete' || entry === 'backspace') {
       let lastIndex = currentWord.length-1;
 
@@ -50,7 +49,6 @@ const Keyboard = ({ setCurrentWord, currentWord, setAttemptCount, attemptCount, 
       setCurrentWord(shorterWord);
     } else if (currentWord.length === 5 && entry === 'enter') {
       await checkWin();
-      // await checkLetters(currentWord);
       await setCurrentWord([]);
     }
   }
