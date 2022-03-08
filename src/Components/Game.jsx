@@ -11,10 +11,10 @@ const Game = () => {
 
   //TODO: Change loadWord to startGame
   useEffect(() => {
-    loadWord();
+    loadGame();
   }, [])
 
-  const loadWord = async () => {
+  const loadGame = async () => {
     let stringifiedData = JSON.stringify({
       user_id: process.env.REACT_APP_TEST_USER_ID
     });
@@ -79,7 +79,6 @@ const Game = () => {
       <Result
         result={ didWin }
         game={ game }
-        loadGame={ loadWord }
       ></Result>
     </div>
   )
