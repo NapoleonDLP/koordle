@@ -21,7 +21,6 @@ const Game = () => {
     await fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/new-game', { method: 'POST', headers: {
       'Content-Type': 'application/json',
     }, body: stringifiedData })
-    //FOR NOW THE GAME RETURNS WITH THE WORD PROPERTY/ Remove when answer is checkd in DB/
     .then(data => data.json())
     .then(game => {
       setGame(game);
