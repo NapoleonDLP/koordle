@@ -6,8 +6,6 @@ import './Game.css';
 
 const Game = () => {
   const [currentWord, setCurrentWord] = useState([]);
-  const [attemptCount, setAttemptCount] = useState(0);
-  const [check, setCheck] = useState(false);
   const [didWin, setDidWin] = useState(null);
   const [game, setGame ] = useState(null);
 
