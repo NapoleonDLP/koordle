@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './Keyboard.css';
 
 const Keyboard = ({ setCurrentWord, currentWord, result, game, checkWin }) => {
-  const [keyboard, setKeyboard] = useState([['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-                                              ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-                                              ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
-                                            ]);
+  const keyboard = [
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+    ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Delete']
+  ];
   const [lettersUsed, setLettersUsed] = useState([]);
   const [correctLetterWrongPlace, setCorrectLetterWrongPlace] = useState([]);
   const [correctLetterRightPlace, setCorrectLetterRightPlace] = useState([]);
