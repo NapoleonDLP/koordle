@@ -16,12 +16,12 @@ const Game = () => {
     loadWord();
   }, [])
 
-  const loadWord = () => {
+  const loadWord = async () => {
     let stringifiedData = JSON.stringify({
       user_id: process.env.REACT_APP_TEST_USER_ID
     });
 
-    fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/new-game', { method: 'POST', headers: {
+    await fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/new-game', { method: 'POST', headers: {
       'Content-Type': 'application/json',
     }, body: stringifiedData })
     //FOR NOW THE GAME RETURNS WITH THE WORD PROPERTY/ Remove when answer is checkd in DB/
@@ -31,10 +31,6 @@ const Game = () => {
     })
     .catch(e => console.log(e))
   }
-
-  useEffect(() => {
-    checkWin();
-  }, [ attemptCount ])
 
   const checkWin = async () => {
     if (currentWord.length > 0) {
@@ -72,18 +68,12 @@ const Game = () => {
     <div id='game'>
       <Board
         currentWord={ currentWord }
-        attemptCount={ attemptCount }
-        check={ check }
-        setCheck={ setCheck }
         result={ didWin }
         game={ game }
       ></Board>
       <Keyboard
         currentWord={ currentWord }
         setCurrentWord={ setCurrentWord }
-        attemptCount={ attemptCount }
-        setAttemptCount={ setAttemptCount }
-        setCheck={ setCheck }
         result={ didWin }
         game={ game }
         checkWin={ checkWin }
