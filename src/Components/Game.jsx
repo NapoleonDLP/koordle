@@ -9,7 +9,6 @@ const Game = () => {
   const [didWin, setDidWin] = useState(null);
   const [game, setGame ] = useState(null);
 
-  //TODO: Change loadWord to startGame
   useEffect(() => {
     loadGame();
   }, [])
