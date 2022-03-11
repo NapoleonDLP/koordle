@@ -14,6 +14,8 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     //Make API call here
+    event.preventDefault()
+    console.log(event)
   }
 
   return (
