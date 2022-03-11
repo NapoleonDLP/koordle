@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Signup.css';
 
 const Signup = () => {
   const [ userEmail, setUserEmail ] = useState('');
@@ -16,7 +17,7 @@ const Signup = () => {
 
   const handleSubmit = (event) => {
     const url = process.env.REACT_APP_KOORDLE_API_LOCAL + '/register';
-    const data = { username: username, password: password, email: userEmail }
+    const data = { username: username, password: password, email: userEmail };
     event.preventDefault();
 
     fetch(url, {
@@ -32,22 +33,19 @@ const Signup = () => {
   }
 
   return (
-    <div>
-      <form>
-        <label>
-          Email:
+    <div id='signup'>
+      <div className='signupForm'>
+        <h1>Sign Up</h1>
+        <form>
+          <label>Email</label>
           <input type='text' value={ userEmail } onChange={ handleChange } name='userEmail' />
-        </label>
-        <label>
-          Password:
+          <label>Password</label>
           <input type='password' value={ password } onChange={ handleChange } name='password' />
-        </label>
-        <label>
-          Username:
+          <label>Username</label>
           <input type='username' value={ username } onChange={ handleChange } name='username' />
-        </label>
-        <input type='submit' value='Submit' onClick={ handleSubmit }/>
-      </form>
+          <input type='submit' value='Submit' onClick={ handleSubmit }/>
+        </form>
+      </div>
     </div>
   )
 }
