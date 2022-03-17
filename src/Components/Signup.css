@@ -17,6 +17,12 @@ h1 {
   border-radius: 1rem;
 }
 
+.formContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
+
 form {
   border: solid blue 1px;
   position: absolute;

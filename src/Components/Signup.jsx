@@ -36,15 +36,17 @@ const Signup = () => {
     <div id='signup'>
       <div className='signupForm'>
         <h1>Sign Up</h1>
-        <form>
-          <label>Email</label>
-          <input type='text' value={ userEmail } onChange={ handleChange } name='userEmail' />
-          <label>Password</label>
-          <input type='password' value={ password } onChange={ handleChange } name='password' />
-          <label>Username</label>
-          <input type='username' value={ username } onChange={ handleChange } name='username' />
-          <input type='submit' value='Submit' onClick={ handleSubmit }/>
-        </form>
+        <div className='formContainer'>
+          <form>
+            <label>Email</label>
+            <input type='text' value={ userEmail } onChange={ handleChange } name='userEmail' />
+            <label>Password</label>
+            <input type='password' value={ password } onChange={ handleChange } name='password' />
+            <label>Username</label>
+            <input type='username' value={ username } onChange={ handleChange } name='username' />
+            <input type='submit' value='Submit' onClick={ handleSubmit }/>
+          </form>
+        </div>
       </div>
     </div>
   )
