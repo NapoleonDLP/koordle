@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
 
-const Board = ({ currentWord, attemptCount, check, setCheck, answer, result }) => {
+const Board = ({ currentWord, result, game }) => {
   const [board, setBoard] = useState([[null, null, null, null, null],
                                     [null, null, null, null, null],
                                     [null, null, null, null, null],
@@ -9,53 +9,43 @@ const Board = ({ currentWord, attemptCount, check, setCheck, answer, result }) =
                                     [null, null, null, null, null],
                                     [null, null, null, null, null]
                                     ]);
-  const [ LetterRightPlace, setLetterRightPlace] = useState([]);
-  const [ LetterWrongPlace, setLetterWrongPlace] = useState([]);
 
   useEffect(() => {
-    let row = attemptCount;
-    let currentSquare = currentWord.length-1;
-
-    if (result === null) {
-      let updatedBoard = board.map((boardRow, index) => {
-        if(index === row) {
-          boardRow[currentSquare] = currentWord[currentSquare];
-
-          if (boardRow[currentSquare+1]) {
-            boardRow[currentSquare+1] = null;
-          }
-        }
-
-        return boardRow;
-      });
-      setBoard(updatedBoard)
+    if (game) {
+      updateBoard();
     }
-  }, [currentWord]);
+  }, [ currentWord ]);
 
-  useEffect(() => {
-    checkRow();
-  }, [check])
+  const updateBoard = async () => {
+    const currentRow = game.attempts.length;
+    const updatedRow = board[currentRow].map((currentSquare, squareIndex, originalRow) => {
+      if (squareIndex >= currentWord.length) {
+        return null;
+      }
 
-  const checkRow = () => {
-    let row = board[attemptCount-1];
-      if (row) {
-        for (let i = 0; i < row.length; i++) {
-          let newCount = ((attemptCount-1) * 5) + i;
-          if (row[i] === answer[i]) {
-            setLetterRightPlace((oldList) => [...new Set([...oldList, newCount])]);
-          } else if (answer.includes(row[i])) {
-            setLetterWrongPlace((oldList) => [...new Set([...oldList, newCount])]);
+      if (currentWord[squareIndex]) {
+        currentSquare = currentWord[squareIndex];
+      }
+
+      return currentSquare;
+    })
+
+    let boardCopy = [...board];
+    boardCopy[currentRow] = updatedRow;
+    await setBoard(boardCopy);
+  }
+
+  const setColor = (rowIndex, squareIndex) => {
+    if (game !== null) {
+      if (game.attempts[rowIndex]) {
+        if (game.attempts[rowIndex].score[squareIndex]) {
+          if (game.attempts[rowIndex].score[squareIndex] === '2') {
+            return 'green';
+          } else if (game.attempts[rowIndex].score[squareIndex] === '1') {
+            return 'yellow';
           }
         }
       }
-      setCheck(false)
-  };
-
-  const setColor = (boxNumber) => {
-    if (LetterRightPlace.includes(boxNumber)) {
-      return 'green';
-    } else if (LetterWrongPlace.includes(boxNumber)) {
-      return 'yellow';
     }
   }
 
@@ -67,8 +57,7 @@ const Board = ({ currentWord, attemptCount, check, setCheck, answer, result }) =
             {
               row.map((square, squareIndex) => {
                 let location = rowIndex + '-' + squareIndex;
-                let squareId = (rowIndex * 5) + squareIndex;
-                let color = setColor(squareId);
+                let color = setColor(rowIndex, squareIndex);
                 return (
                   <li id={'square-' + location } className={ 'square ' + color } key={[rowIndex, squareIndex]}>
                     <h2>{ square }</h2>
