@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Result.css';
 import trophy from './trophy.png';
 import sadFace from './sad-face.png'
 
-const Result = ({ result, answer }) => {
+const Result = ({ result, game }) => {
+  let [ answer, setAnswer ] = useState(null);
+
+  useEffect(() => {
+    if (result !== null) {
+      fetchData();
+    }
+  }, [ result ])
+
+  const fetchData = async () => {
+    await fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/get-answer/' + game._id)
+    .then(data => data.json())
+    .then(res => setAnswer(res.answer))
+    .catch(e => console.log(e));
+  }
+
   return (
     (result === null ? null : (
       <div className='modal'>
