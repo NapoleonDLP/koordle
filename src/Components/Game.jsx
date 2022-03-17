@@ -34,7 +34,7 @@ const Game = () => {
       let userId = process.env.REACT_APP_TEST_USER_ID;
       const data = { "user_id": userId, "word": currentWordString }
 
-      await fetch(process.env.REACT_APP_KOORDLE_API_LOCAL + '/word-check', {
+      await fetch(process.env.REACT_APP_KOORDLE_API_URL + '/word-check', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
