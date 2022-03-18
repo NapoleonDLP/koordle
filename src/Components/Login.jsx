@@ -14,8 +14,18 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     //Make API call here
-    event.preventDefault()
-    console.log(event)
+    event.preventDefault();
+    const data = { userEmail, password };
+    const url = process.env.REACT_APP_KOORDLE_API_LOCAL + '/authenticate';
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    })
+    console.dir(event.target)
   }
 
   return (
